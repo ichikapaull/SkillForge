@@ -1,0 +1,121 @@
+@startuml
+
+!define RECTANGLE class
+
+' Kullanıcılar ve roller
+class User {
+  +userID: int
+  +name: string
+  +email: string
+  +password: string
+  +role: string
+}
+
+class Student {
+  +studentID: int
+  +completedCourses: List<Course>
+  +certificates: List<Certificate>
+}
+
+class Instructor {
+  +instructorID: int
+  +coursesCreated: List<Course>
+}
+
+class Admin {
+  +adminID: int
+  +manageUsers(): void
+  +manageCourses(): void
+}
+
+' Kurslar ve içerik
+class Course {
+  +courseID: int
+  +title: string
+  +description: string
+  +price: float
+  +duration: int
+  +courseStatus: string
+}
+
+class Module {
+  +moduleID: int
+  +title: string
+  +description: string
+  +videoURL: string
+}
+
+class Quiz {
+  +quizID: int
+  +questions: List<Question>
+}
+
+class Question {
+  +questionID: int
+  +questionText: string
+  +options: List<string>
+  +correctAnswer: string
+}
+
+class Assignment {
+  +assignmentID: int
+  +title: string
+  +dueDate: Date
+  +maxMarks: int
+  +submittedFiles: List<File>
+}
+
+class Certificate {
+  +certificateID: int
+  +course: Course
+  +student: Student
+  +issueDate: Date
+  +completionStatus: string
+}
+
+' Etkileşim ve bildirimler
+class Notification {
+  +notificationID: int
+  +message: string
+  +date: Date
+}
+
+class Feedback {
+  +feedbackID: int
+  +rating: int
+  +comment: string
+}
+
+' Veritabanı bağlantısı
+class Database {
+  +saveData(): void
+  +fetchData(): void
+  +updateData(): void
+  +deleteData(): void
+}
+
+' İlişkiler
+User <|-- Student
+User <|-- Instructor
+User <|-- Admin
+
+Student "1" -- "0..*" Course : Enrolls
+Student "1" -- "0..*" Certificate : Receives
+Instructor "1" -- "0..*" Course : Creates
+Instructor "1" -- "0..*" Module : Teaches
+Instructor "1" -- "0..*" Assignment : Assigns
+Instructor "1" -- "0..*" Quiz : Creates
+
+Course "1" -- "0..*" Module : Contains
+Course "1" -- "0..*" Quiz : Includes
+Course "1" -- "0..*" Assignment : Contains
+
+Course "1" -- "0..*" Feedback : Receives
+Course "1" -- "0..*" Notification : Sends
+Module "1" -- "0..*" Quiz : Contains
+
+Database "1" -- "0..*" User : Manages
+Database "1" -- "0..*" Course : Stores
+Database "1" -- "0..*" Certificate : Stores
+
+@enduml

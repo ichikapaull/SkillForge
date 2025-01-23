@@ -1,7 +1,3 @@
-İşte **SkillForge** için önerilen etkileyici, özgün ve profesyonel bir README dosyası:
-
----
-
 # **SkillForge** - The Future of Learning, Crafted with Passion
 
 Welcome to **SkillForge**, the ultimate platform where skills are forged, futures are shaped, and learning becomes an adventure. Whether you're a student looking to expand your knowledge, or an instructor wanting to share your expertise with the world, SkillForge is the place for you.
